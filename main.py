@@ -38,7 +38,7 @@ def verify_input(make, model, year, odometer):
         print("Please enter a valid year.")
         main()
     # Importing the dataset
-    dataset = pd.read_csv('vehicles.csv')
+    dataset = pd.read_csv('vehicles_shrunk.csv')
     # Cleaning the dataset
     dataset = dataset[dataset['manufacturer'].isin([make])]
     dataset = dataset[dataset['model'].isin([model])]
@@ -64,14 +64,16 @@ def verify_input(make, model, year, odometer):
 def get_car_price(make, model, year, odometer):
     print("Loading . . .")
     # Importing the dataset
-    dataset = pd.read_csv('vehicles.csv')
+    dataset = pd.read_csv('vehicles_shrunk.csv')
     # Cleaning the dataset
     dataset = dataset[dataset['manufacturer'].isin([make])]
     dataset = dataset[dataset['model'].isin([model])]
     dataset = dataset[dataset['year'].isin([int(year)])]
     dataset = dataset[dataset['price'] != 0]
-    X = dataset.iloc[:, 11].values
+    X = dataset.iloc[:, 3].values
+    # X = mileage
     y = dataset.iloc[:, 4].values
+    # Y = price
     X = X.reshape(-1, 1)
     y = y.reshape(-1, 1)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2)
@@ -97,7 +99,7 @@ def get_car_price_average_mileage():
     print("Loading . . .")
 
     # Importing the dataset
-    dataset = pd.read_csv('vehicles.csv')
+    dataset = pd.read_csv('vehicles_shrunk.csv')
 
     # Cleaning the dataset
     dataset = dataset[dataset['price'] != 0]
@@ -133,7 +135,7 @@ def get_car_price_average_year():
     print("Loading . . .")
 
     # Importing the dataset
-    dataset = pd.read_csv('vehicles.csv')
+    dataset = pd.read_csv('vehicles_shrunk.csv')
 
     # Cleaning the dataset
     dataset = dataset[dataset['price'] != 0]
